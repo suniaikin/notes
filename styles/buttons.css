@@ -1,0 +1,15 @@
+.noteForm-addButton {
+    background-color: brown;
+}
+
+.noteElement-controls {
+    background-color: aqua;
+}
+
+.noteElement-delete {
+    background-color: rgb(242, 7, 183);
+}
+
+.noteElement-favorite {
+    background-color: blue;
+}

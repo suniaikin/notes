@@ -1,33 +1,6 @@
-// Константы
+import { NOTE_COLORS, DEFAULT_COLOR, TEXT_CONSTANTS, ICONS } from './constants.js';
 
-// цвета заметок
-const NOTE_COLORS = { // цвета заметок
-	YELLOW: "yellow",
-	GREEN: "green",
-	BLUE: "blue",
-	PINK: "pink",
-	VIOLET: "violet",
-}
 
-// цвет по умолчанию для новых заметок
-const DEFAULT_COLOR = NOTE_COLORS.YELLOW;
-
-// текстовые константы
-const TEXT_CONSTANTS = {
-	TITLE_INPUT: "Напишите название новой заметки...",
-	TEXT_INPUT: "Напишите текст новой заметки...",
-	ADD_BUTTON: "Добавить",
-	LOGO_TEXT: "NOTES",
-	CALCULATOR: "Всего заметок: ",
-};
-
-// иконки
-const ICONS = {
-	DELETE_BUTTON: "❌",
-	FAVORITE_BUTTON: "🌞",
-	UNFAVORITE_BUTTON: "⛅",
-	LOGO: "📝"
-}
 
 // MODEL
 
@@ -87,7 +60,7 @@ const view = {
 		this.headerContainer.append(headerRender);
 	},
 
-	// Форма для ввода заметки
+	// Отрисовка формы для ввода заметки
 	createForm() {
 		const noteForm = document.createElement("div");
 		noteForm.classList.add("noteForm");
@@ -134,12 +107,9 @@ const view = {
 				color: this.selectedColor,
 				isFavorite: false
 			};
-			model.notes.push(newNote);
-			this.renderNotes(model.notes);
 			titleInput.value = "";
 			textInput.value = "";
-			this.updateCounter()
-
+			controller.handleAddNote(newNote)
 		});
 
 		return noteForm;
@@ -191,24 +161,14 @@ const view = {
 		return noteElement;
 	},
 
-	// Функция для рендеринга всех заметок
 	renderNotes(notes) {
-
-		// очистка корневого элемента перед рендерингом
 		this.notesСontainer.innerHTML = "";
-
-		// фрагмент для временного хранения элементов заметок
 		const fragment = document.createDocumentFragment();
-
-		// перебор массива заметок
 		notes.forEach((note) => {
 			const noteElement = this.createNoteElement(note);
 			fragment.append(noteElement);
 		})
-
-		// добавление фрагмента с заметками в корневой элемент
 		this.notesСontainer.append(fragment);
-
 	},
 
 	removeNoteElement(id) {
@@ -247,6 +207,11 @@ const controller = {
 				this.handleFavoriteNote(noteId);
 			}
 		});
+	},
+	handleAddNote(newNote) {
+		model.notes.push(newNote);
+		view.renderNotes(model.notes)
+		view.updateCounter()
 	},
 
 	handleDeleteNote(id) {
