@@ -1,4 +1,4 @@
-import { NOTE_COLORS, DEFAULT_COLOR, TEXT_CONSTANTS, ICONS } from './constants.js';
+import { NOTE_COLORS, DEFAULT_COLOR, TEXT_CONSTANTS, ICONS } from './js/constants.js.js';
 
 
 
@@ -49,7 +49,7 @@ const view = {
 		return appHeader;
 	},
 
-	updateCounter() {
+	updateCounter(count) {
 		const counter = document.querySelector(".appHeader-notesCount");
 		counter.textContent = `${TEXT_CONSTANTS.CALCULATOR} ${model.notes.length}`
 	},
